@@ -45,6 +45,10 @@ def main():
         os.makedirs(parent, exist_ok=True)
     with open(path, "wb") as handle:
         handle.write(data)
+    # Verifikasi balik: berkas yang dinilai harus byte-per-byte sama
+    # dengan baris itu sendiri; gagal keras bila penulisan rusak.
+    with open(path, "rb") as check:
+        assert check.read() == data, "isi berkas tidak sama dengan baris"
 
 
 if __name__ == "__main__":
